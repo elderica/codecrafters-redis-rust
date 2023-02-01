@@ -18,12 +18,12 @@ fn main() -> result::Result<(), io::Error> {
                 eprintln!("accepted new connection");
 
                 let mut buf = [0; 64];
-                _stream.read(&mut buf)?;
+                _stream.read_exact(&mut buf)?;
 
                 let parsed = split_resp(&buf);
                 eprintln!("{:?}", parsed);
 
-                _stream.write(PONG)?;
+                _stream.write_all(PONG)?;
             }
             Err(e) => {
                 eprintln!("error: {}", e);
